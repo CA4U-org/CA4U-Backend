@@ -1,6 +1,7 @@
 package com.example.ca4u_backend.domain.club;
 
 import com.example.ca4u_backend.base.BaseEntity;
+import com.example.ca4u_backend.domain.category.Category;
 import com.example.ca4u_backend.domain.hashtag.Hashtag;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -15,6 +16,10 @@ public class Club extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     //여러개 썸네일 사진 (일단 하나만 할까~)
   /*  @OneToMany(mappedBy = "club")

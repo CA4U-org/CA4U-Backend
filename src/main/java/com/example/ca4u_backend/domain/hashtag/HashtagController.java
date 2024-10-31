@@ -25,7 +25,7 @@ public class HashtagController {
             @Parameter(name = "clubId", description = "길드아이디", in = ParameterIn.PATH)
     })
     @GetMapping("/{clubId}/hashtags")
-    public ApiResponse<List<HashtagReponseDto>> getGuildHashtags(@PathVariable long clubId){
-        return ApiResponse.ok(hashtagService.getGuildAllHashtags(clubId), "길드 상세 정보를 불러왔습니다.");
+    public ApiResponse<List<HashtagReponseDto>> getClubHashtags(@PathVariable long clubId){
+        return ApiResponse.ok(hashtagService.getClubAllHashtags(clubId), "길드 상세 정보를 불러왔습니다.");
     }
 }

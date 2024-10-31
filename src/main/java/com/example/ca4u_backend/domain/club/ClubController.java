@@ -12,18 +12,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Tag(name = "Club API", description = "클럽(동아리,학회)에 대한 요청을 담당하는 API입니다.")
-@RequestMapping("/api/clubs")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 @RestController
 public class ClubController {
     private final ClubService ClubService;
 
-    @Operation(summary = "길드 상세 조회", description = "길드의 상세페이지 정보를 전달합니다.", parameters = {
-            @Parameter(name = "guildId", description = "길드아이디", in = ParameterIn.PATH)
+    @Operation(summary = "클럽 상세 조회", description = "클럽의 상세페이지 정보를 전달합니다.", parameters = {
+            @Parameter(name = "clubId", description = "클럽 아이디", in = ParameterIn.PATH)
     })
-    @GetMapping("/{clubId}")
+    @GetMapping("/clubs/{clubId}")
     public ApiResponse<ClubReponseDto> getClub(@PathVariable long clubId){
         return ApiResponse.ok(ClubService.getClubSpec(clubId), "클럽 상세 정보를 불러왔습니다.");
     }
+
+    @Operation(summary = "카테고리에 속한 클럽 조회", description = "특정 카테고리에 속한 클럽들을 카테고리 아이디로 조회합니다.", parameters = {
+            @Parameter(name = "categoryId", description = "카테고리 아이디", in = ParameterIn.PATH)
+    })
+    @GetMapping("/{categoryId}/clubs")
+    public ApiResponse<List<ClubReponseDto>> getClubsByCategory(@PathVariable long categoryId){
+        return ApiResponse.ok(ClubService.getClubsByCategoryId(categoryId), "카테고리에 속한 클럽들을 불러왔습니다.");
+    }
+
+
+
 }
