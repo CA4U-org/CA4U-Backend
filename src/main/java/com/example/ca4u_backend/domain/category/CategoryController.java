@@ -23,7 +23,4 @@ public class CategoryController {
     public ApiResponse<List<CategoryResponseDto>> getCategories() {
         return ApiResponse.ok(categoryService.getAllCategories(), "카테고리 목록 조회 성공");
     }
-
-
-
 }
