@@ -24,7 +24,7 @@ public class HashtagController {
     @Operation(summary = "특정클럽의 해쉬태그 목록 조회", description = "클럽의 상세페이지에서 해쉬태그 정보를 전달합니다.", parameters = {
             @Parameter(name = "clubId", description = "클럽 아이디", in = ParameterIn.PATH)
     })
-    @GetMapping("/{clubId}/hashtags")
+    @GetMapping("/clubs/{clubId}/hashtags")
     public ApiResponse<List<HashtagReponseDto>> getClubHashtags(@PathVariable long clubId){
         return ApiResponse.ok(hashtagService.getClubAllHashtags(clubId), "클럽 상세 정보를 불러왔습니다.");
     }
