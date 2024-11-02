@@ -21,7 +21,7 @@ public class SecurityConfig {
                 .logout((logoutConfig) ->
                         logoutConfig.logoutSuccessUrl("/"))
                 .headers((headers) -> headers.frameOptions((frameOptions) -> frameOptions.disable()))
-                .oauth2Login((oauth2)->oauth2
+                .oauth2Login((oauth2) -> oauth2
                         .userInfoEndpoint(
                                 userInfoEndPointConfig ->
                                         userInfoEndPointConfig.userService(customOAuth2UserService)

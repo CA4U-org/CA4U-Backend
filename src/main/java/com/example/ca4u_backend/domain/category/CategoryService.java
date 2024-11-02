@@ -12,6 +12,7 @@ import java.util.List;
 @Service
 public class CategoryService {
     private final CategoryRepository categoryRepository;
+
     public List<CategoryResponseDto> getAllCategories() {
         return categoryRepository.findAll().stream().map(CategoryResponseDto::of).toList();
     }

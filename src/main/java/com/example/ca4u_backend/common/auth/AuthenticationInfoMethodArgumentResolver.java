@@ -26,7 +26,7 @@ public class AuthenticationInfoMethodArgumentResolver implements HandlerMethodAr
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication.isAuthenticated()) {
-            CustomOAuth2User principal = (CustomOAuth2User)authentication.getPrincipal();
+            CustomOAuth2User principal = (CustomOAuth2User) authentication.getPrincipal();
             return principal.getId();
         } else {
             return null;

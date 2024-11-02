@@ -25,7 +25,7 @@ public class ClubController {
             @Parameter(name = "clubId", description = "클럽 아이디", in = ParameterIn.PATH)
     })
     @GetMapping("/clubs/{clubId}")
-    public ApiResponse<ClubReponseDto> getClub(@PathVariable long clubId){
+    public ApiResponse<ClubReponseDto> getClub(@PathVariable long clubId) {
         return ApiResponse.ok(ClubService.getClubSpec(clubId), "클럽 상세 정보를 불러왔습니다.");
     }
 
@@ -33,10 +33,9 @@ public class ClubController {
             @Parameter(name = "categoryId", description = "카테고리 아이디", in = ParameterIn.PATH)
     })
     @GetMapping("/categories/{categoryId}/clubs")
-    public ApiResponse<List<ClubReponseDto>> getClubsByCategory(@PathVariable long categoryId){
+    public ApiResponse<List<ClubReponseDto>> getClubsByCategory(@PathVariable long categoryId) {
         return ApiResponse.ok(ClubService.getClubsByCategoryId(categoryId), "카테고리에 속한 클럽들을 불러왔습니다.");
     }
-
 
 
 }

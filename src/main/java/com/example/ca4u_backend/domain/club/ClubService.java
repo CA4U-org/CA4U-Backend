@@ -13,6 +13,7 @@ import java.util.List;
 @Service
 public class ClubService {
     private final ClubRepository clubRepository;
+
     public ClubReponseDto getClubSpec(long clubId) {
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("존재하지 않는 클럽입니다."));
         return ClubReponseDto.of(club);

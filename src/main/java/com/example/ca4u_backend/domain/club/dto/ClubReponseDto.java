@@ -1,7 +1,6 @@
 package com.example.ca4u_backend.domain.club.dto;
 
 import com.example.ca4u_backend.domain.club.Club;
-import jakarta.persistence.Column;
 import lombok.*;
 
 import java.time.format.DateTimeFormatter;
@@ -37,7 +36,7 @@ public class ClubReponseDto {
     // 업데이트 날짜
     private String updatedAt;
 
-    public static ClubReponseDto of(Club club){
+    public static ClubReponseDto of(Club club) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy.MM.dd"); // 원하는 포맷
 
         return ClubReponseDto.builder()

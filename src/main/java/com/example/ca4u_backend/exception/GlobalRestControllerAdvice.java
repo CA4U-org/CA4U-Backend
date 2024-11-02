@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalRestControllerAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public ApiResponse<String> handleException(Exception e){
+    public ApiResponse<String> handleException(Exception e) {
         e.printStackTrace();
         log.error("Exception catched in RestControllerAdvice : {}", e.getMessage());
         return ApiResponse.fail(e.getMessage());
@@ -22,21 +22,21 @@ public class GlobalRestControllerAdvice {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BaseException.class)
-    public ApiResponse<String> handleBaseException(BaseException e){
+    public ApiResponse<String> handleBaseException(BaseException e) {
         log.debug("Exception catched in RestControllerAdvice : {}", e.getMessage());
         return ApiResponse.fail(e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ApiResponse<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
+    public ApiResponse<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.debug("Exception catched in RestControllerAdvice : {}", e.getMessage());
         return ApiResponse.fail(e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
-    public ApiResponse<String> handleIllegalArgumentException(IllegalArgumentException e){
+    public ApiResponse<String> handleIllegalArgumentException(IllegalArgumentException e) {
         log.debug("Exception catched in RestControllerAdvice : {}", e.getMessage());
         return ApiResponse.fail(e.getMessage());
     }

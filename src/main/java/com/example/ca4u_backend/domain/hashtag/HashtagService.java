@@ -12,8 +12,9 @@ import java.util.List;
 @Service
 public class HashtagService {
     private final HashtagRepository hashtagRepository;
+
     public List<HashtagReponseDto> getClubAllHashtags(long clubId) {
-        List <Hashtag> hashtags = hashtagRepository.findAllByClubId(clubId);
+        List<Hashtag> hashtags = hashtagRepository.findAllByClubId(clubId);
         return hashtags.stream().map(HashtagReponseDto::of).toList();
     }
 }
