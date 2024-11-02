@@ -170,3 +170,6 @@ $RECYCLE.BIN/
 
 application.properties
 application-oauth.properties
+
+.idea/
+build/
