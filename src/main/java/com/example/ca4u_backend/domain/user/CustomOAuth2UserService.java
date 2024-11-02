@@ -24,13 +24,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
-        OAuth2Response oAuth2Response = null;
-        if (registrationId.equals("google")) {
-            oAuth2Response = new GoogleResponse(oAuth2User.getAttributes());
-        }
-        else{
-            return null;
-        }
+        if (!registrationId.equals("google")) return null;
+
+        OAuth2Response oAuth2Response = new GoogleResponse(oAuth2User.getAttributes());
 
         String username = oAuth2Response.getProvider() + " " + oAuth2Response.getProviderId();
 
@@ -43,13 +39,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     .role(Role.USER)
                     .build();
             userRepository.save(user);
-        }else {
-            Role role = user.getRole();
-            user = User.builder()
-                    .username(username)
-                    .email(oAuth2Response.getEmail())
-                    .role(role)
-                    .build();
+        } else {
+            user.updateEmail(oAuth2Response.getEmail());
             userRepository.save(user);
         }
 

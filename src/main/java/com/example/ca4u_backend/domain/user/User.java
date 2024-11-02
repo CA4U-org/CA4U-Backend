@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @NoArgsConstructor
@@ -30,6 +31,10 @@ public class User extends BaseEntity {
         this.username = username;
         this.email = email;
         this.role = role;
+    }
+
+    public void updateEmail(String email) {
+        this.email = email;
     }
 
     public String getRoleKey() {
