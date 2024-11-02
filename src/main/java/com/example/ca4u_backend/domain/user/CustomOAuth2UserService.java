@@ -44,6 +44,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             userRepository.save(user);
         }
 
-        return new CustomOAuth2User(oAuth2Response, user.getRoleKey());
+        return new CustomOAuth2User(user);
     }
 }

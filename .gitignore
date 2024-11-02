@@ -173,3 +173,4 @@ application-oauth.properties
 
 .idea/
 build/
+.gradle/
