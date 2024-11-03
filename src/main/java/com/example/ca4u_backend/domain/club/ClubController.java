@@ -19,14 +19,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 public class ClubController {
-    private final ClubService ClubService;
+    private final ClubService clubService;
 
     @Operation(summary = "클럽 상세 조회", description = "클럽의 상세페이지 정보를 전달합니다.", parameters = {
             @Parameter(name = "clubId", description = "클럽 아이디", in = ParameterIn.PATH)
     })
     @GetMapping("/clubs/{clubId}")
     public ApiResponse<ClubReponseDto> getClub(@PathVariable long clubId) {
-        return ApiResponse.ok(ClubService.getClubSpec(clubId), "클럽 상세 정보를 불러왔습니다.");
+        return ApiResponse.ok(clubService.getClubSpec(clubId), "클럽 상세 정보를 불러왔습니다.");
     }
 
     @Operation(summary = "카테고리에 속한 클럽 조회", description = "특정 카테고리에 속한 클럽들을 카테고리 아이디로 조회합니다.", parameters = {
@@ -34,7 +34,7 @@ public class ClubController {
     })
     @GetMapping("/categories/{categoryId}/clubs")
     public ApiResponse<List<ClubReponseDto>> getClubsByCategory(@PathVariable long categoryId) {
-        return ApiResponse.ok(ClubService.getClubsByCategoryId(categoryId), "카테고리에 속한 클럽들을 불러왔습니다.");
+        return ApiResponse.ok(clubService.getClubsByCategoryId(categoryId), "카테고리에 속한 클럽들을 불러왔습니다.");
     }
 
 
