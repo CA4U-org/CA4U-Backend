@@ -1,6 +1,6 @@
 package com.example.ca4u_backend.domain.user;
 
-import com.example.ca4u_backend.base.BaseEntity;
+import com.example.ca4u_backend.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

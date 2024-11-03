@@ -7,12 +7,12 @@ import lombok.*;
 @Builder(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
-public class HashtagReponseDto {
+public class HashtagResponseDto {
     private String hashtagNm;
     private String imgUrl;
 
-    public static HashtagReponseDto of(Hashtag hashtag) {
-        return HashtagReponseDto.builder()
+    public static HashtagResponseDto of(Hashtag hashtag) {
+        return HashtagResponseDto.builder()
                 .hashtagNm(hashtag.getHashtagNm())
                 .imgUrl(hashtag.getImgUrl())
                 .build();

@@ -1,6 +1,6 @@
 package com.example.ca4u_backend.domain.club;
 
-import com.example.ca4u_backend.base.BaseEntity;
+import com.example.ca4u_backend.common.entity.BaseEntity;
 import com.example.ca4u_backend.domain.category.Category;
 import com.example.ca4u_backend.domain.hashtag.Hashtag;
 import jakarta.persistence.*;

@@ -1,7 +1,7 @@
 package com.example.ca4u_backend.domain.hashtag;
 
 import com.example.ca4u_backend.apiResponse.ApiResponse;
-import com.example.ca4u_backend.domain.hashtag.dto.HashtagReponseDto;
+import com.example.ca4u_backend.domain.hashtag.dto.HashtagResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -25,7 +25,7 @@ public class HashtagController {
             @Parameter(name = "clubId", description = "클럽 아이디", in = ParameterIn.PATH)
     })
     @GetMapping("/clubs/{clubId}/hashtags")
-    public ApiResponse<List<HashtagReponseDto>> getClubHashtags(@PathVariable long clubId) {
+    public ApiResponse<List<HashtagResponseDto>> getClubHashtags(@PathVariable long clubId) {
         return ApiResponse.ok(hashtagService.getClubAllHashtags(clubId), "클럽 상세 정보를 불러왔습니다.");
     }
 }
