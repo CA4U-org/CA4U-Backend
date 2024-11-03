@@ -1,11 +1,12 @@
 package com.example.ca4u_backend.apiResponse;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonPropertyOrder({"success", "message", "results"})
 public class ApiResponse<T> {
     private final boolean success;
