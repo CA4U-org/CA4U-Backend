@@ -28,8 +28,9 @@ public class SecurityConfig {
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(
                                 userInfoEndPointConfig ->
-                                        userInfoEndPointConfig.userService(customOAuth2UserService)
-                        ))
+                                        userInfoEndPointConfig.userService(customOAuth2UserService))
+                                .defaultSuccessUrl("https://ca4u-75cbe.web.app/")
+                        )
                 //oauth2Client를 추가 하게 되면 세부 로그인 로직들을 구현 해야 한다.
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll()
