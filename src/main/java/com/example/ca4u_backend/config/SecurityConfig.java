@@ -29,7 +29,7 @@ public class SecurityConfig {
                         .userInfoEndpoint(
                                 userInfoEndPointConfig ->
                                         userInfoEndPointConfig.userService(customOAuth2UserService))
-                                .defaultSuccessUrl("https://ca4u-75cbe.web.app/")
+                                .defaultSuccessUrl("https://ca4u-75cbe.web.app/") //로그인 성공 후 redirect url
                         )
                 //oauth2Client를 추가 하게 되면 세부 로그인 로직들을 구현 해야 한다.
                 .authorizeHttpRequests(auth -> auth
