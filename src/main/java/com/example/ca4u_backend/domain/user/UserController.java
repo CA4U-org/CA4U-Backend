@@ -1,5 +1,6 @@
 package com.example.ca4u_backend.domain.user;
 
+import com.example.ca4u_backend.apiResponse.ApiResponse;
 import com.example.ca4u_backend.common.auth.Auth;
 import com.example.ca4u_backend.domain.user.dto.UserResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,12 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/api/v1/users/me")
-    public UserResponseDto getUser(@Auth Long userId) {
-        return userService.getUser(userId);
+    public ApiResponse<UserResponseDto> getMe(@Auth Long userId) {
+
+        if (userId == null) {
+            return ApiResponse.fail("로그인이 필요합니다.");
+        }
+
+        return ApiResponse.ok(userService.getUser(userId));
     }
 }

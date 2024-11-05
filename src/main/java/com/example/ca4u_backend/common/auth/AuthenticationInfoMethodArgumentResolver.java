@@ -25,11 +25,15 @@ public class AuthenticationInfoMethodArgumentResolver implements HandlerMethodAr
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication.isAuthenticated()) {
+        if (authentication.isAuthenticated() && !isAnonymous(authentication)) {
             CustomOAuth2User principal = (CustomOAuth2User) authentication.getPrincipal();
             return principal.getId();
         } else {
             return null;
         }
+    }
+
+    private boolean isAnonymous(Authentication authentication) {
+        return authentication == null || "anonymousUser".equals(authentication.getPrincipal());
     }
 }
