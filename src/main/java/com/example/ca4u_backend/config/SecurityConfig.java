@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -18,6 +19,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 @EnableWebSecurity
 public class SecurityConfig {
     private final CustomOAuth2UserService customOAuth2UserService;
+    private final AuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -33,9 +35,7 @@ public class SecurityConfig {
                         .userInfoEndpoint(
                                 userInfoEndPointConfig ->
                                         userInfoEndPointConfig.userService(customOAuth2UserService))
-                                .defaultSuccessUrl("https://ca4u-75cbe.web.app/")
-                        )
-                //oauth2Client를 추가 하게 되면 세부 로그인 로직들을 구현 해야 한다.
+                        .successHandler(authenticationSuccessHandler))
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll()
                 );
