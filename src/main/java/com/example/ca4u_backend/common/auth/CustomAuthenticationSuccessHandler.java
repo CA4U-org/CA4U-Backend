@@ -1,5 +1,6 @@
 package com.example.ca4u_backend.common.auth;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -9,24 +10,25 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        // 요청의 호스트를 기준으로 리다이렉트 URL 결정
-        String host = request.getHeader("Host");
-        log.debug("Host: {}", host);
-        String redirectUri;
+        // state 파라미터를 가져와 로컬 또는 운영 환경에 따라 리디렉트
+        String state = request.getParameter("state");
+        String redirectUrl;
 
-        if (host.contains("localhost")) {
-            redirectUri = "http://localhost:3000"; // 로컬 리다이렉트 URL
+        if ("local".equals(state)) {
+            redirectUrl = "http://localhost:3000"; // 로컬 리디렉트 URL
         } else {
-            redirectUri = "https://ca4u-75cbe.web.app/"; // 운영 리다이렉트 URL
+            redirectUrl = "https://ca4u-75cbe.web.app/"; // 운영 리디렉트 URL
         }
 
-        // 해당 URL로 리다이렉트
-        response.sendRedirect(redirectUri);
+        response.sendRedirect(redirectUrl);
     }
 }

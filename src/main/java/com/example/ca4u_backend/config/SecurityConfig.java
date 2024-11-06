@@ -1,5 +1,6 @@
 package com.example.ca4u_backend.config;
 
+import com.example.ca4u_backend.common.auth.CustomAuthorizationRequestResolver;
 import com.example.ca4u_backend.domain.user.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -8,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
@@ -20,6 +22,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 public class SecurityConfig {
     private final CustomOAuth2UserService customOAuth2UserService;
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
+    private final OAuth2AuthorizationRequestResolver customAuthorizationRequestResolver;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -32,8 +35,9 @@ public class SecurityConfig {
                         logoutConfig.logoutSuccessUrl("/"))
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .oauth2Login(oauth2 -> oauth2
-                        .userInfoEndpoint(
-                                userInfoEndPointConfig ->
+                        .authorizationEndpoint(authorization ->
+                                authorization.authorizationRequestResolver(customAuthorizationRequestResolver))
+                        .userInfoEndpoint(userInfoEndPointConfig ->
                                         userInfoEndPointConfig.userService(customOAuth2UserService))
                         .successHandler(authenticationSuccessHandler))
                 .authorizeHttpRequests(auth -> auth
