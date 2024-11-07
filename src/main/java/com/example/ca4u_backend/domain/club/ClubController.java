@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
 
 @Tag(name = "Club API", description = "클럽(동아리,학회)에 대한 요청을 담당하는 API입니다.")
@@ -37,5 +38,14 @@ public class ClubController {
         return ApiResponse.ok(ClubService.getClubsByCategoryId(categoryId), "카테고리에 속한 클럽들을 불러왔습니다.");
     }
 
-
+    @Operation(summary = "클럽 리스트 조회", description = "검색어가 포함된 동아리 목록을 조회합니다.", parameters = {
+            @Parameter(name = "search", description = "검색어", in = ParameterIn.QUERY)
+    })
+    @GetMapping("/clubs")
+    public ApiResponse<List<ClubReponseDto>> getClubsBySearch(@Parameter(description = "검색어") String search) {
+        if (search == null || search.isEmpty()) {
+            return ApiResponse.ok(Collections.emptyList(), "검색어가 제공되지 않았습니다.");
+        }
+        return ApiResponse.ok(ClubService.getClubsBySearch(search), "클럽 리스트를 불러왔습니다.");
+    }
 }
