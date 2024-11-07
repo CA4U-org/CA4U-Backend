@@ -1,6 +1,7 @@
 package com.example.ca4u_backend.domain.club;
 
 import com.example.ca4u_backend.apiResponse.ApiResponse;
+import com.example.ca4u_backend.common.auth.Auth;
 import com.example.ca4u_backend.domain.club.dto.ClubReponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -47,5 +48,19 @@ public class ClubController {
             return ApiResponse.ok(Collections.emptyList(), "검색어가 제공되지 않았습니다.");
         }
         return ApiResponse.ok(ClubService.getClubsBySearch(search), "클럽 리스트를 불러왔습니다.");
+    }
+
+    @Operation(summary = "즐겨찾기 클럽 추가/삭제", description = "즐겨찾기 클럽을 추가하거나 삭제합니다.", parameters = {
+            @Parameter(name = "clubId", description = "클럽 아이디", in = ParameterIn.PATH)
+    })
+    @GetMapping("/clubs/{clubId}/favorites")
+    public ApiResponse<String> toggleClubFavoriteStatus(@PathVariable long clubId, @Auth Long userId) {
+        return ApiResponse.ok(ClubService.toggleClubFavoriteStatus(clubId, userId), "즐겨찾기 클럽을 추가하거나 삭제했습니다.");
+    }
+
+    @Operation(summary = "사용자에 따른 즐겨찾기 목록 조회", description = "특정 사용자가 즐겨찾기한 클럽 목록을 조회합니다.")
+    @GetMapping("/clubs/favorites")
+    public ApiResponse<List<ClubReponseDto>> getFavoriteClubsByUser(@Auth Long userId) {
+        return ApiResponse.ok(ClubService.getFavoriteClubsByUserId(userId), "즐겨찾기한 클럽 목록을 불러왔습니다.");
     }
 }
