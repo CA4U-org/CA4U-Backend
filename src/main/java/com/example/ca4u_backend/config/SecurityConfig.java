@@ -52,6 +52,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.addAllowedOrigin("https://ca4u-75cbe.web.app");
+        config.addAllowedOrigin("https://ca4u.store");
         config.addAllowedOrigin("http://localhost:3000");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
