@@ -26,7 +26,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         if ("local".equals(state)) {
             redirectUrl = "http://localhost:3000"; // 로컬 리디렉트 URL
         } else {
-            redirectUrl = "https://ca4u-75cbe.web.app/"; // 운영 리디렉트 URL
+            redirectUrl = "https://ca4u.store/"; // 운영 리디렉트 URL
         }
 
         response.sendRedirect(redirectUrl);
