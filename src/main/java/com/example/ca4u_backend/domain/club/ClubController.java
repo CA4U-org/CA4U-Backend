@@ -8,10 +8,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -53,7 +50,7 @@ public class ClubController {
     @Operation(summary = "즐겨찾기 클럽 추가/삭제", description = "즐겨찾기 클럽을 추가하거나 삭제합니다.", parameters = {
             @Parameter(name = "clubId", description = "클럽 아이디", in = ParameterIn.PATH)
     })
-    @GetMapping("/clubs/{clubId}/favorites")
+    @PostMapping("/clubs/{clubId}/favorites")
     public ApiResponse<String> toggleClubFavoriteStatus(@PathVariable long clubId, @Auth Long userId) {
         return ApiResponse.ok(ClubService.toggleClubFavoriteStatus(clubId, userId), "즐겨찾기 클럽을 추가하거나 삭제했습니다.");
     }

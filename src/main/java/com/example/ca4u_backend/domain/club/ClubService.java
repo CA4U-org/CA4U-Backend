@@ -35,6 +35,7 @@ public class ClubService {
         return clubList.stream().map(ClubReponseDto::of).toList();
     }
 
+    @Transactional
     public String toggleClubFavoriteStatus(long clubId, long userId) {
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("존재하지 않는 클럽입니다."));
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("존재하지 않는 사용자입니다."));
