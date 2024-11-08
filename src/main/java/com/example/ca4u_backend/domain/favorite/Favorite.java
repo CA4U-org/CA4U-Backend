@@ -4,11 +4,12 @@ import com.example.ca4u_backend.common.entity.BaseEntity;
 import com.example.ca4u_backend.domain.club.Club;
 import com.example.ca4u_backend.domain.user.User;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "FAVORITE")
 public class Favorite extends BaseEntity {
     @Id
