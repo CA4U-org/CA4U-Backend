@@ -1,6 +1,5 @@
 package com.example.ca4u_backend.common.auth;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -10,9 +9,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 @Slf4j
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {

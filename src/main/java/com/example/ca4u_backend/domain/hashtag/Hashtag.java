@@ -19,7 +19,7 @@ public class Hashtag extends BaseEntity {
     @Column(name = "img_url")
     private String imgUrl;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "club_id")
     private Club club;
 }
