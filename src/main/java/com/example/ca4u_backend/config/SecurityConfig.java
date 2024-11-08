@@ -2,6 +2,7 @@ package com.example.ca4u_backend.config;
 
 import com.example.ca4u_backend.common.auth.CustomAuthorizationRequestResolver;
 import com.example.ca4u_backend.domain.user.CustomOAuth2UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +33,12 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .logout(logoutConfig ->
-                        logoutConfig.logoutSuccessUrl("/"))
+                        logoutConfig
+                                .logoutSuccessHandler((request, response, authentication) -> {
+                                    response.setStatus(HttpServletResponse.SC_OK);
+                                    response.getWriter().flush(); // 빈 응답 반환
+                                })
+                )
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .oauth2Login(oauth2 -> oauth2
                         .authorizationEndpoint(authorization ->
