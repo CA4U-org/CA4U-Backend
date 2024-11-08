@@ -53,5 +53,6 @@ public class User extends BaseEntity {
         this.name = name;
         this.department = department;
         this.major = major;
+        this.isRegistered = true;
     }
 }
