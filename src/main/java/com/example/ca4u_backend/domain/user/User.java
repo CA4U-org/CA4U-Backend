@@ -21,6 +21,15 @@ public class User extends BaseEntity {
     @Column(name = "email", nullable = false)
     private String email;
 
+    //회원 가입 시 전달받은 이름입니다.
+    private String name;
+
+    private String department;
+
+    private String major;
+
+    private boolean isRegistered;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
@@ -38,5 +47,12 @@ public class User extends BaseEntity {
 
     public String getRoleKey() {
         return this.role.getKey();
+    }
+
+    public void updateStudentInfo(String name, String department, String major) {
+        this.name = name;
+        this.department = department;
+        this.major = major;
+        this.isRegistered = true;
     }
 }
