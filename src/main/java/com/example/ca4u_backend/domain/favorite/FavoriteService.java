@@ -24,24 +24,21 @@ public class FavoriteService {
     private final UserRepository userRepository;
 
     @Transactional
-    public String toggleClubFavoriteStatus(long clubId, long userId) {
+    public boolean toggleClubFavoriteStatus(long clubId, long userId) {
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("존재하지 않는 클럽입니다."));
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("존재하지 않는 사용자입니다."));
-
-        String userName = user.getUsername();
-        String clubName = club.getClubNm();
 
         if (favoriteRepository.existsByUserAndClub(user, club)) {
             favoriteRepository.deleteByUserAndClub(user, club);
             //이력 추가
             favoriteHistoryRepository.save(new FavoriteHistory(user, club, ActionType.REMOVE));
-            return userName + "님이 " + clubName + "를 즐겨찾기 목록에서 삭제했습니다.";
+            return true;
 
         } else {
             favoriteRepository.save(new Favorite(user, club));
             //이력 추가
             favoriteHistoryRepository.save(new FavoriteHistory(user, club, ActionType.ADD));
-            return userName + "님이 " + clubName + "를 즐겨찾기 목록에 추가했습니다.";
+            return false;
         }
     }
 

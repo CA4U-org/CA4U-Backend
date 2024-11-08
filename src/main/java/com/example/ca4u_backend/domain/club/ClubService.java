@@ -1,13 +1,6 @@
 package com.example.ca4u_backend.domain.club;
 
 import com.example.ca4u_backend.domain.club.dto.ClubReponseDto;
-import com.example.ca4u_backend.domain.favorite.Favorite;
-import com.example.ca4u_backend.domain.favorite.FavoriteRepository;
-import com.example.ca4u_backend.domain.favorite.history.ActionType;
-import com.example.ca4u_backend.domain.favorite.history.FavoriteHistory;
-import com.example.ca4u_backend.domain.favorite.history.FavoriteHistoryRepository;
-import com.example.ca4u_backend.domain.user.User;
-import com.example.ca4u_backend.domain.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

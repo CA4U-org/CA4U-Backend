@@ -1,14 +1,16 @@
 package com.example.ca4u_backend.domain.club;
 
 import com.example.ca4u_backend.apiResponse.ApiResponse;
-import com.example.ca4u_backend.common.auth.Auth;
 import com.example.ca4u_backend.domain.club.dto.ClubReponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
 import java.util.List;

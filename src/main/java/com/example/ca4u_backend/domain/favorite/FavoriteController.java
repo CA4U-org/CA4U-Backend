@@ -22,8 +22,10 @@ public class FavoriteController {
             @Parameter(name = "clubId", description = "클럽 아이디", in = ParameterIn.PATH)
     })
     @PostMapping("/clubs/{clubId}/favorites")
-    public ApiResponse<String> toggleClubFavoriteStatus(@PathVariable long clubId, @Auth Long userId) {
-        return ApiResponse.ok(favoriteService.toggleClubFavoriteStatus(clubId, userId), "즐겨찾기 클럽을 추가하거나 삭제했습니다.");
+    public ApiResponse<Boolean> toggleClubFavoriteStatus(@PathVariable long clubId, @Auth Long userId) {
+        boolean isAdded = favoriteService.toggleClubFavoriteStatus(clubId, userId);
+        String message = isAdded ? "즐겨찾기 클럽이 추가되었습니다." : "즐겨찾기 클럽이 삭제되었습니다.";
+        return ApiResponse.ok(isAdded, message);
     }
 
     @Operation(summary = "사용자에 따른 즐겨찾기 목록 조회", description = "특정 사용자가 즐겨찾기한 클럽 목록을 조회합니다.")

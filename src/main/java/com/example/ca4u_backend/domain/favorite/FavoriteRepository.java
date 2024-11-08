@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface FavoriteRepository extends JpaRepository<Favorite, Long> {
-    @Query("SELECT f FROM FAVORITE f JOIN FETCH f.user JOIN FETCH f.club WHERE f.user = :user")
+    @Query("SELECT f FROM FAVORITE f JOIN FETCH f.club WHERE f.user = :user")
     List<Favorite> findByUser(User user);
 
     boolean existsByUserAndClub(User user, Club club);

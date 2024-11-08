@@ -3,7 +3,6 @@ package com.example.ca4u_backend.domain.user;
 import com.example.ca4u_backend.apiResponse.ApiResponse;
 import com.example.ca4u_backend.common.auth.Auth;
 import com.example.ca4u_backend.domain.user.dto.UserResponseDto;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

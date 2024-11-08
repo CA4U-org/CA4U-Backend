@@ -1,6 +1,5 @@
 package com.example.ca4u_backend.config;
 
-import com.example.ca4u_backend.common.auth.CustomAuthorizationRequestResolver;
 import com.example.ca4u_backend.domain.user.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
