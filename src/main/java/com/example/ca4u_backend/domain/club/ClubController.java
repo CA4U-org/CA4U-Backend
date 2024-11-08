@@ -46,6 +46,6 @@ public class ClubController {
         if (search == null || search.isEmpty()) {
             return ApiResponse.ok(Collections.emptyList(), "검색어가 제공되지 않았습니다.");
         }
-        return ApiResponse.ok(ClubService.getClubsBySearch(search), "클럽 리스트를 불러왔습니다.");
+        return ApiResponse.ok(clubService.getClubsBySearch(search), "클럽 리스트를 불러왔습니다.");
     }
 }
