@@ -23,4 +23,9 @@ public class ClubService {
         List<Club> clubList = clubRepository.findByCategoryId(categoryId);
         return clubList.stream().map(ClubReponseDto::of).toList();
     }
+
+    public List<ClubReponseDto> getClubsBySearch(String search) {
+        List<Club> clubList = clubRepository.findByClubNmContainingOrBriefDescriptionContaining(search, search);
+        return clubList.stream().map(ClubReponseDto::of).toList();
+    }
 }

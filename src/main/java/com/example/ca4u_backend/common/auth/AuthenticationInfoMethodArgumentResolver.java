@@ -1,6 +1,7 @@
 package com.example.ca4u_backend.common.auth;
 
 import com.example.ca4u_backend.domain.user.dto.CustomOAuth2User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +15,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
  * Handler Parameter에 로그인한 사용자의 ID를 주입합니다.
  */
 @Component
+@Slf4j
 public class AuthenticationInfoMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
@@ -25,11 +27,19 @@ public class AuthenticationInfoMethodArgumentResolver implements HandlerMethodAr
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication.isAuthenticated()) {
+        if (authentication.isAuthenticated() && !isAnonymous(authentication)) {
+
+
             CustomOAuth2User principal = (CustomOAuth2User) authentication.getPrincipal();
             return principal.getId();
         } else {
             return null;
         }
+    }
+
+    private boolean isAnonymous(Authentication authentication) {
+        boolean ret =  authentication == null || "anonymousUser".equals(authentication.getPrincipal());
+        log.debug("isAnonymous: {}", ret);
+        return ret;
     }
 }
