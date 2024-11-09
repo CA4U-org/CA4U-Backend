@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -26,6 +27,11 @@ public class ClubService {
 
     public List<ClubReponseDto> getClubsBySearch(String search) {
         List<Club> clubList = clubRepository.findByClubNmContainingOrBriefDescriptionContaining(search, search);
+        return clubList.stream().map(ClubReponseDto::of).toList();
+    }
+
+    public List<ClubReponseDto> getClubsInIds(Collection<Long> clubIds) {
+        List<Club> clubList = clubRepository.findByIdIn(clubIds);
         return clubList.stream().map(ClubReponseDto::of).toList();
     }
 }

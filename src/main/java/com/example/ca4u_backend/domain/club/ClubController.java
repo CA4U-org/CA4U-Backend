@@ -1,5 +1,6 @@
 package com.example.ca4u_backend.domain.club;
 
+import com.example.ca4u_backend.aiClient.AIClient;
 import com.example.ca4u_backend.apiResponse.ApiResponse;
 import com.example.ca4u_backend.domain.club.dto.ClubReponseDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Tag(name = "Club API", description = "클럽(동아리,학회)에 대한 요청을 담당하는 API입니다.")
 @RequestMapping("/api")
@@ -21,6 +23,7 @@ import java.util.List;
 @RestController
 public class ClubController {
     private final ClubService clubService;
+    private final AIClient aiClient;
 
     @Operation(summary = "클럽 상세 조회", description = "클럽의 상세페이지 정보를 전달합니다.", parameters = {
             @Parameter(name = "clubId", description = "클럽 아이디", in = ParameterIn.PATH)
@@ -47,5 +50,11 @@ public class ClubController {
             return ApiResponse.ok(Collections.emptyList(), "검색어가 제공되지 않았습니다.");
         }
         return ApiResponse.ok(clubService.getClubsBySearch(search), "클럽 리스트를 불러왔습니다.");
+    }
+
+    @GetMapping("/clubs/{clubId}/content-recommendation")
+    public ApiResponse<List<ClubReponseDto>> getRecommendedClubsByContent(@PathVariable Long clubId) {
+        Set<Long> recommendedClubIds = aiClient.recommendedByContent(clubId);
+        return ApiResponse.ok(clubService.getClubsInIds(recommendedClubIds));
     }
 }
