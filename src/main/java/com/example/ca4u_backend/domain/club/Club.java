@@ -6,6 +6,7 @@ import com.example.ca4u_backend.domain.hashtag.Hashtag;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class Club extends BaseEntity {
     private String briefDescription;
 
     //모집공고글
-    @Column(name = "recruit_description")
+    @Column(name = "recruit_description", columnDefinition = "TEXT")
     private String recruitDescription;
 
     //선발대상설명
@@ -61,9 +62,20 @@ public class Club extends BaseEntity {
     @Column(name = "cost_description") // 회비 설명
     private String costDescription; // 회비 설명
 
-    @Column(name = "spec_description") // 클럽 상세 설명 (About 클럽)
+    @Column(name = "spec_description", columnDefinition = "TEXT") // 클럽 상세 설명 (About 클럽)
     private String specDescription; // 클럽 상세 설명 (About 클럽)
 
     @Column(name = "logo_img_url") // 클럽 로고 이미지 주소
     private String logoImgUrl; // 클럽 로고 이미지 주소
+
+    @Column(name = "fee_period")
+    private String feePeriod;
+
+    private String affiliation1;
+
+    private String affiliation2;
+
+    private String  time;
+
+    private Integer membership;
 }

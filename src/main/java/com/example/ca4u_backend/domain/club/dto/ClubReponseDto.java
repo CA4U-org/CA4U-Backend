@@ -40,6 +40,7 @@ public class ClubReponseDto {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy.MM.dd"); // 원하는 포맷
 
         return ClubReponseDto.builder()
+                .id(club.getId())
                 .clubNm(club.getClubNm())
                 .briefDescription(club.getBriefDescription())
                 .recruitDescription(club.getRecruitDescription())
