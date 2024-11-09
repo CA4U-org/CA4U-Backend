@@ -26,23 +26,6 @@ public class UserController {
         return ApiResponse.ok(userService.getUser(userId));
     }
 
-    @GetMapping("/user-info")
-    public String getUserInfo() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication != null && authentication.isAuthenticated()) {
-            Object principal = authentication.getPrincipal();
-
-            if (principal instanceof UserDetails) {
-                UserDetails userDetails = (UserDetails) principal;
-                return "Username: " + userDetails.getUsername();
-            } else {
-                return "Principal: " + principal.toString();
-            }
-        }
-
-        return "No authenticated user found";
-    }
 
     @PatchMapping("/api/v1/users/me")
     public void updateMe(@Auth Long userId, @RequestBody UpdateStudentInfoRequest requestDto) {
