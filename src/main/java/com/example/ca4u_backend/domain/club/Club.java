@@ -22,9 +22,10 @@ public class Club extends BaseEntity {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    //여러개 썸네일 사진 (일단 하나만 할까~)
-  /*  @OneToMany(mappedBy = "club")
-    private List<clubThumbnail> clubThumbnailList = new ArrayList<>();*/
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "CLUB_THUMNAIL", joinColumns = @JoinColumn(name = "club_id"))
+    @Column(name = "img_url", columnDefinition = "TEXT")
+    private List<String> thumbnailImgUrlList;
 
     @OneToMany(mappedBy = "club")
     private List<Hashtag> HashtagList = new ArrayList<>();
@@ -65,7 +66,7 @@ public class Club extends BaseEntity {
     @Column(name = "spec_description", columnDefinition = "TEXT") // 클럽 상세 설명 (About 클럽)
     private String specDescription; // 클럽 상세 설명 (About 클럽)
 
-    @Column(name = "logo_img_url") // 클럽 로고 이미지 주소
+    @Column(name = "logo_img_url", columnDefinition = "TEXT") // 클럽 로고 이미지 주소
     private String logoImgUrl; // 클럽 로고 이미지 주소
 
     @Column(name = "fee_period")
@@ -75,7 +76,7 @@ public class Club extends BaseEntity {
 
     private String affiliation2;
 
-    private String  time;
+    private String time;
 
     private Integer membership;
 }
