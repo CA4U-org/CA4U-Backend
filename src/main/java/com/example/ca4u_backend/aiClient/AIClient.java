@@ -18,7 +18,7 @@ import java.util.Set;
 public class AIClient {
 
     private final RestTemplate restTemplate;
-    private static final String ADDRESS = "http://54.180.155.162";
+    private static final String ADDRESS = "http://localhost:8000";
 
     @AllArgsConstructor
     @NoArgsConstructor
