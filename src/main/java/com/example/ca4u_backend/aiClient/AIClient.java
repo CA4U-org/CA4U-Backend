@@ -25,8 +25,8 @@ public class AIClient {
     @NoArgsConstructor
     @Getter
     public static class ContentRecommendationResponse {
-        @JsonProperty("recommended_club")
-        private List<ContentRecommendationItem> recommendedClub;
+        @JsonProperty("recommended_clubs")
+        private List<ContentRecommendationItem> recommendedClubs;
     }
 
     @AllArgsConstructor
@@ -41,7 +41,7 @@ public class AIClient {
         String query = clubId.stream().map(String::valueOf).collect(Collectors.joining(","));
         Set<Long> recommendedClubIds = new HashSet<>();
         ResponseEntity<ContentRecommendationResponse> resp = restTemplate.getForEntity(ADDRESS + "/clubs/content/recommend/n/" + query, ContentRecommendationResponse.class);
-        resp.getBody().getRecommendedClub().forEach(recommendedClub -> recommendedClubIds.add(recommendedClub.getId()));
+        resp.getBody().getRecommendedClubs().forEach(recommendedClub -> recommendedClubIds.add(recommendedClub.getId()));
         return recommendedClubIds;
     }
 }
