@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -36,18 +37,11 @@ public class AIClient {
         private String name;
     }
 
-    public Set<Long> recommendedByContent(Long clubId) {
+    public Set<Long> recommendedByContent(List<Long> clubId) {
+        String query = clubId.stream().map(String::valueOf).collect(Collectors.joining(","));
         Set<Long> recommendedClubIds = new HashSet<>();
-        ResponseEntity<ContentRecommendationResponse> resp = restTemplate.getForEntity(ADDRESS + "/clubs/content/recommend/" + clubId, ContentRecommendationResponse.class);
+        ResponseEntity<ContentRecommendationResponse> resp = restTemplate.getForEntity(ADDRESS + "/clubs/content/recommend/n/" + query, ContentRecommendationResponse.class);
         resp.getBody().getRecommendedClub().forEach(recommendedClub -> recommendedClubIds.add(recommendedClub.getId()));
-        return recommendedClubIds;
-    }
-
-    public Set<Long> recommendByContent(List<Long> clubIds) {
-        Set<Long> recommendedClubIds = new HashSet<>();
-        for (Long clubId : clubIds) {
-            recommendedClubIds.addAll(recommendedByContent(clubId));
-        }
         return recommendedClubIds;
     }
 }

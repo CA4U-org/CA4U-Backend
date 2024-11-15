@@ -8,10 +8,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -51,8 +48,8 @@ public class ClubController {
         return ApiResponse.ok(clubService.getClubsBySearch(search), "클럽 리스트를 불러왔습니다.");
     }
 
-    @GetMapping("/clubs/{clubId}/content-recommendation")
-    public ApiResponse<List<ClubReponseDto>> getRecommendedClubsByContent(@PathVariable Long clubId) {
-        return ApiResponse.ok(clubService.getRelatedClubs(clubId), "추천 클럽 리스트를 불러왔습니다.");
+    @GetMapping("/clubs/content-recommendation")
+    public ApiResponse<List<ClubReponseDto>> getRecommendedClubsByContent(@RequestParam List<Long> clubIds) {
+        return ApiResponse.ok(clubService.getRelatedClubs(clubIds), "추천 클럽 리스트를 불러왔습니다.");
     }
 }
