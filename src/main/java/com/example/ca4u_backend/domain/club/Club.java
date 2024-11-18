@@ -24,7 +24,7 @@ public class Club extends BaseEntity {
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "CLUB_THUMNAIL", joinColumns = @JoinColumn(name = "club_id"))
-    @Column(name = "img_url", columnDefinition = "TEXT")
+    @Column(name = "thumbnail_img_url", columnDefinition = "TEXT")
     private List<String> thumbnailImgUrlList;
 
     @OneToMany(mappedBy = "club")
