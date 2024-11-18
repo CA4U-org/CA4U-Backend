@@ -36,8 +36,8 @@ public class ClubReponseDto {
     private String logoImgUrl;
     // 업데이트 날짜
     private String updatedAt;
-    // 클럽 썸네일 이미지 주소
-    private List<String> thumbnailImgUrlList;
+/*    // 클럽 썸네일 이미지 주소
+    private List<String> thumbnailImgUrlList;*/
 
     public static ClubReponseDto of(Club club) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy.MM.dd"); // 원하는 포맷
@@ -56,7 +56,7 @@ public class ClubReponseDto {
                 .specDescription(club.getSpecDescription())
                 .logoImgUrl(club.getLogoImgUrl())
                 .updatedAt(club.getUpdatedAt().format(formatter))
-                .thumbnailImgUrlList(club.getThumbnailImgUrlList())
+          /*      .thumbnailImgUrlList(club.getThumbnailImgUrlList())*/
                 .build();
     }
 }
