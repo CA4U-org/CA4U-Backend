@@ -44,4 +44,19 @@ public class AIClient {
         resp.getBody().getRecommendedClubs().forEach(recommendedClub -> recommendedClubIds.add(recommendedClub.getId()));
         return recommendedClubIds;
     }
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    public static class UserRecommendationResponse {
+        @JsonProperty("recommended_club")
+        private List<ContentRecommendationItem> recommendedClubs;
+    }
+
+    public Set<Long> recommendedByUser(Long userId) {
+        Set<Long> recommendedClubIds = new HashSet<>();
+        ResponseEntity<UserRecommendationResponse> resp = restTemplate.getForEntity(ADDRESS + "/clubs/user/recommend/" + userId, UserRecommendationResponse.class);
+        resp.getBody().getRecommendedClubs().forEach(recommendedClub -> recommendedClubIds.add(recommendedClub.getId()));
+        return recommendedClubIds;
+    }
 }

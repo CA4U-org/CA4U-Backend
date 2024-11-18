@@ -2,6 +2,7 @@ package com.example.ca4u_backend.domain.club;
 
 import com.example.ca4u_backend.aiClient.AIClient;
 import com.example.ca4u_backend.apiResponse.ApiResponse;
+import com.example.ca4u_backend.common.auth.Auth;
 import com.example.ca4u_backend.domain.club.dto.ClubReponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -51,5 +52,10 @@ public class ClubController {
     @GetMapping("/clubs/content-recommendation")
     public ApiResponse<List<ClubReponseDto>> getRecommendedClubsByContent(@RequestParam List<Long> clubIds) {
         return ApiResponse.ok(clubService.getRelatedClubs(clubIds), "추천 클럽 리스트를 불러왔습니다.");
+    }
+
+    @GetMapping("/clubs/user-recommendation")
+    public ApiResponse<List<ClubReponseDto>> getUserRecommendedClubs(@Auth Long userId) {
+        return ApiResponse.ok(clubService.getRecommendedClubsByUser(userId), "사용자에게 추천된 클럽 리스트를 불러왔습니다.");
     }
 }

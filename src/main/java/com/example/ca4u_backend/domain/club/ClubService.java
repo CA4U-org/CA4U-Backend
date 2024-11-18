@@ -38,4 +38,10 @@ public class ClubService {
         List<Club> clubs = clubRepository.findByIdIn(recommendedClubIds);
         return clubs.stream().map(ClubReponseDto::of).toList();
     }
+
+    public List<ClubReponseDto> getRecommendedClubsByUser(Long userId) {
+        Set<Long> recommendedClubIds = aiClient.recommendedByUser(userId);
+        List<Club> clubs = clubRepository.findByIdIn(recommendedClubIds);
+        return clubs.stream().map(ClubReponseDto::of).toList();
+    }
 }
