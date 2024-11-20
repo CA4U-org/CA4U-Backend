@@ -5,15 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class AIClient {
@@ -54,9 +57,14 @@ public class AIClient {
     }
 
     public Set<Long> recommendedByUser(Long userId) {
-        Set<Long> recommendedClubIds = new HashSet<>();
-        ResponseEntity<UserRecommendationResponse> resp = restTemplate.getForEntity(ADDRESS + "/clubs/user/recommend/" + userId, UserRecommendationResponse.class);
-        resp.getBody().getRecommendedClubs().forEach(recommendedClub -> recommendedClubIds.add(recommendedClub.getId()));
-        return recommendedClubIds;
+        try {
+            Set<Long> recommendedClubIds = new HashSet<>();
+            ResponseEntity<UserRecommendationResponse> resp = restTemplate.getForEntity(ADDRESS + "/clubs/user/recommend/" + userId, UserRecommendationResponse.class);
+            resp.getBody().getRecommendedClubs().forEach(recommendedClub -> recommendedClubIds.add(recommendedClub.getId()));
+            return recommendedClubIds;
+        } catch (Exception e) {
+            log.error("Error occurs while sending request at ai app, {} ", e.getMessage());
+            return Collections.emptySet();
+        }
     }
 }
