@@ -34,6 +34,7 @@ public class ClubResponseDto {
   private String logoImgUrl;
   // 업데이트 날짜
   private String updatedAt;
+
   /*    // 클럽 썸네일 이미지 주소
   private List<String> thumbnailImgUrlList;*/
 

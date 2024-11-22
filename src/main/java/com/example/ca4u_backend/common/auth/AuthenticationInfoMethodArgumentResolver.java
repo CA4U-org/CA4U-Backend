@@ -2,6 +2,7 @@ package com.example.ca4u_backend.common.auth;
 
 import com.example.ca4u_backend.domain.user.dto.CustomOAuth2User;
 import com.example.ca4u_backend.exception.BaseException;
+import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.Authentication;
@@ -37,10 +38,12 @@ public class AuthenticationInfoMethodArgumentResolver implements HandlerMethodAr
       CustomOAuth2User principal = (CustomOAuth2User) authentication.getPrincipal();
       return principal.getId();
     } else {
-      Auth authAnnotation = parameter.getParameterAnnotation(Auth.class);
+      Auth authAnnotation = Objects.requireNonNull(parameter.getParameterAnnotation(Auth.class));
+
       if (authAnnotation.required()) {
         throw new BaseException("로그인이 필요합니다.");
       }
+
       return null;
     }
   }
