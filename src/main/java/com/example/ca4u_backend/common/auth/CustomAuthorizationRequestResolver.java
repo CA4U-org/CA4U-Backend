@@ -33,6 +33,7 @@ public class CustomAuthorizationRequestResolver implements OAuth2AuthorizationRe
 
   private OAuth2AuthorizationRequest addCustomState(
       OAuth2AuthorizationRequest authorizationRequest, HttpServletRequest request) {
+
     if (authorizationRequest == null) {
       return null;
     }

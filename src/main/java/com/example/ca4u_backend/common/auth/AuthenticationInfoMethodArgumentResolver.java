@@ -37,15 +37,14 @@ public class AuthenticationInfoMethodArgumentResolver implements HandlerMethodAr
     if (authentication.isAuthenticated() && !isAnonymous(authentication)) {
       CustomOAuth2User principal = (CustomOAuth2User) authentication.getPrincipal();
       return principal.getId();
-    } else {
-      Auth authAnnotation = Objects.requireNonNull(parameter.getParameterAnnotation(Auth.class));
-
-      if (authAnnotation.required()) {
-        throw new BaseException("로그인이 필요합니다.");
-      }
-
-      return null;
     }
+
+    Auth authAnnotation = Objects.requireNonNull(parameter.getParameterAnnotation(Auth.class));
+    if (authAnnotation.required()) {
+      throw new BaseException("로그인이 필요합니다.");
+    }
+
+    return null;
   }
 
   private boolean isAnonymous(Authentication authentication) {
