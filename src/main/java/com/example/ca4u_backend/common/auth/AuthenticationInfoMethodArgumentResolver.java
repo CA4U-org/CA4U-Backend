@@ -1,6 +1,7 @@
 package com.example.ca4u_backend.common.auth;
 
 import com.example.ca4u_backend.domain.user.dto.CustomOAuth2User;
+import com.example.ca4u_backend.exception.BaseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.Authentication;
@@ -29,20 +30,22 @@ public class AuthenticationInfoMethodArgumentResolver implements HandlerMethodAr
       NativeWebRequest webRequest,
       WebDataBinderFactory binderFactory)
       throws Exception {
+
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
     if (authentication.isAuthenticated() && !isAnonymous(authentication)) {
-
       CustomOAuth2User principal = (CustomOAuth2User) authentication.getPrincipal();
       return principal.getId();
     } else {
+      Auth authAnnotation = parameter.getParameterAnnotation(Auth.class);
+      if (authAnnotation.required()) {
+        throw new BaseException("로그인이 필요합니다.");
+      }
       return null;
     }
   }
 
   private boolean isAnonymous(Authentication authentication) {
-    boolean ret = authentication == null || "anonymousUser".equals(authentication.getPrincipal());
-    log.debug("isAnonymous: {}", ret);
-    return ret;
+    return authentication == null || "anonymousUser".equals(authentication.getPrincipal());
   }
 }

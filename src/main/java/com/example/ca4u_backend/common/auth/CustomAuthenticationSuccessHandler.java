@@ -17,14 +17,14 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
   public void onAuthenticationSuccess(
       HttpServletRequest request, HttpServletResponse response, Authentication authentication)
       throws IOException, ServletException {
-    String state = request.getParameter("state");
-    String redirectUrl;
 
-    if ("local".equals(state)) {
-      redirectUrl = "http://localhost:3000";
-    } else {
-      redirectUrl = "https://ca4u.store/";
-    }
+    AuthorizationRequestState state =
+        AuthorizationRequestState.valueOf(request.getParameter("state"));
+
+    String redirectUrl =
+        AuthorizationRequestState.LOCAL.equals(state)
+            ? "http://localhost:3000/my"
+            : "https://ca4u.store/my";
 
     response.sendRedirect(redirectUrl);
   }
