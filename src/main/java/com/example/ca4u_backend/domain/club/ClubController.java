@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Club API", description = "클럽(동아리,학회)에 대한 요청을 담당하는 API입니다.")
@@ -46,7 +47,7 @@ public class ClubController {
   @GetMapping("/clubs")
   public ApiResponse<List<ClubResponseDto>> getClubsBySearch(
       @Parameter(description = "검색어") String search) {
-    if (search == null || search.isEmpty()) {
+    if (StringUtils.hasText(search)) {
       return ApiResponse.ok(Collections.emptyList(), "검색어가 제공되지 않았습니다.");
     }
     return ApiResponse.ok(clubService.getClubsBySearch(search), "클럽 리스트를 불러왔습니다.");
