@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HealthCheckController {
 
-    @GetMapping("/api/v1/health")
-    public void healthCheck() {
-        log.trace("Health Check");
-    }
+  @GetMapping("/api/v1/health")
+  public void healthCheck() {
+    log.trace("Health Check");
+  }
 }

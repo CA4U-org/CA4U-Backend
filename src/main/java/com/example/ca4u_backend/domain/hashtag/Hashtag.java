@@ -8,18 +8,18 @@ import lombok.Getter;
 @Getter
 @Entity(name = "HASHTAG")
 public class Hashtag extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  private Long id;
 
-    @Column(name = "hashtag_nm", nullable = false)
-    private String hashtagNm;
+  @Column(name = "hashtag_nm", nullable = false)
+  private String hashtagNm;
 
-    @Column(name = "img_url")
-    private String imgUrl;
+  @Column(name = "img_url")
+  private String imgUrl;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "club_id")
-    private Club club;
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "club_id")
+  private Club club;
 }

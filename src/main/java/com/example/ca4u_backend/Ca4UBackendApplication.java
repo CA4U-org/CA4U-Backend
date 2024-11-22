@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Ca4UBackendApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(Ca4UBackendApplication.class, args);
-    }
-
+  public static void main(String[] args) {
+    SpringApplication.run(Ca4UBackendApplication.class, args);
+  }
 }

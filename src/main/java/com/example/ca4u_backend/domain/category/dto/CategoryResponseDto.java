@@ -8,15 +8,15 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CategoryResponseDto {
-    private Long id;
-    private String categoryNm;
-    private String imgUrl;
+  private Long id;
+  private String categoryNm;
+  private String imgUrl;
 
-    public static CategoryResponseDto of(Category category) {
-        return CategoryResponseDto.builder()
-                .id(category.getId())
-                .categoryNm(category.getCategoryNm())
-                .imgUrl(category.getImgUrl())
-                .build();
-    }
+  public static CategoryResponseDto of(Category category) {
+    return CategoryResponseDto.builder()
+        .id(category.getId())
+        .categoryNm(category.getCategoryNm())
+        .imgUrl(category.getImgUrl())
+        .build();
+  }
 }

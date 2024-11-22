@@ -12,16 +12,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class UserService {
 
-    private final UserRepository userRepository;
+  private final UserRepository userRepository;
 
-    public UserResponseDto getUser(Long userId) {
-        User findUser = userRepository.findById(userId).orElseThrow(() -> new BaseException("해당 사용자가 없습니다."));
-        return UserResponseDto.from(findUser);
-    }
+  public UserResponseDto getUser(Long userId) {
+    User findUser =
+        userRepository.findById(userId).orElseThrow(() -> new BaseException("해당 사용자가 없습니다."));
+    return UserResponseDto.from(findUser);
+  }
 
-    @Transactional
-    public void updateUser(Long userId, UpdateStudentInfoRequest requestDto) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new BaseException("해당 사용자가 없습니다."));
-        user.updateStudentInfo(requestDto.getName(), requestDto.getDepartment(), requestDto.getMajor());
-    }
+  @Transactional
+  public void updateUser(Long userId, UpdateStudentInfoRequest requestDto) {
+    User user =
+        userRepository.findById(userId).orElseThrow(() -> new BaseException("해당 사용자가 없습니다."));
+    user.updateStudentInfo(requestDto.getName(), requestDto.getDepartment(), requestDto.getMajor());
+  }
 }

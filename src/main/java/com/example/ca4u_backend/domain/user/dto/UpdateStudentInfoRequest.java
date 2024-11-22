@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class UpdateStudentInfoRequest {
-    private String name;
-    private String department;
-    private String major;
+  private String name;
+  private String department;
+  private String major;
 }

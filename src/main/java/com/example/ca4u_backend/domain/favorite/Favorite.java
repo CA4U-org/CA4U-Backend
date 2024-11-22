@@ -12,21 +12,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "FAVORITE")
 public class Favorite extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "user_id", nullable = false)
+  private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "club_id", nullable = false)
-    private Club club;
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "club_id", nullable = false)
+  private Club club;
 
-    public Favorite(User user, Club club) {
-        this.user = user;
-        this.club = club;
-    }
+  public Favorite(User user, Club club) {
+    this.user = user;
+    this.club = club;
+  }
 }
