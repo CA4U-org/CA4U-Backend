@@ -2,7 +2,7 @@ package com.example.ca4u_backend.domain.favorite;
 
 import com.example.ca4u_backend.apiResponse.ApiResponse;
 import com.example.ca4u_backend.common.auth.Auth;
-import com.example.ca4u_backend.domain.club.dto.ClubReponseDto;
+import com.example.ca4u_backend.domain.club.dto.ClubResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -32,7 +32,7 @@ public class FavoriteController {
 
   @Operation(summary = "사용자에 따른 즐겨찾기 목록 조회", description = "특정 사용자가 즐겨찾기한 클럽 목록을 조회합니다.")
   @GetMapping("/clubs/favorites")
-  public ApiResponse<List<ClubReponseDto>> getFavoriteClubsByUser(@Auth Long userId) {
+  public ApiResponse<List<ClubResponseDto>> getFavoriteClubsByUser(@Auth Long userId) {
     return ApiResponse.ok(favoriteService.getFavoriteClubsByUserId(userId), "즐겨찾기한 클럽 목록을 불러왔습니다.");
   }
 }

@@ -2,7 +2,7 @@ package com.example.ca4u_backend.domain.favorite;
 
 import com.example.ca4u_backend.domain.club.Club;
 import com.example.ca4u_backend.domain.club.ClubRepository;
-import com.example.ca4u_backend.domain.club.dto.ClubReponseDto;
+import com.example.ca4u_backend.domain.club.dto.ClubResponseDto;
 import com.example.ca4u_backend.domain.favorite.history.ActionType;
 import com.example.ca4u_backend.domain.favorite.history.FavoriteHistory;
 import com.example.ca4u_backend.domain.favorite.history.FavoriteHistoryRepository;
@@ -48,12 +48,12 @@ public class FavoriteService {
     }
   }
 
-  public List<ClubReponseDto> getFavoriteClubsByUserId(Long userId) {
+  public List<ClubResponseDto> getFavoriteClubsByUserId(Long userId) {
     User user =
         userRepository
             .findById(userId)
             .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 사용자입니다."));
     List<Favorite> favoriteList = favoriteRepository.findByUser(user);
-    return favoriteList.stream().map(Favorite::getClub).map(ClubReponseDto::of).toList();
+    return favoriteList.stream().map(Favorite::getClub).map(ClubResponseDto::of).toList();
   }
 }

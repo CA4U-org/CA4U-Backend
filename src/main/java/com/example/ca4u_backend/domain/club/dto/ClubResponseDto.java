@@ -8,7 +8,7 @@ import lombok.*;
 @Builder(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClubReponseDto {
+public class ClubResponseDto {
   private Long id;
   // 클럽명
   private String clubNm;
@@ -37,10 +37,10 @@ public class ClubReponseDto {
   /*    // 클럽 썸네일 이미지 주소
   private List<String> thumbnailImgUrlList;*/
 
-  public static ClubReponseDto of(Club club) {
+  public static ClubResponseDto of(Club club) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy.MM.dd"); // 원하는 포맷
 
-    return ClubReponseDto.builder()
+    return ClubResponseDto.builder()
         .id(club.getId())
         .clubNm(club.getClubNm())
         .briefDescription(club.getBriefDescription())

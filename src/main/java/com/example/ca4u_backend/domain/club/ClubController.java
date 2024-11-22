@@ -2,7 +2,7 @@ package com.example.ca4u_backend.domain.club;
 
 import com.example.ca4u_backend.apiResponse.ApiResponse;
 import com.example.ca4u_backend.common.auth.Auth;
-import com.example.ca4u_backend.domain.club.dto.ClubReponseDto;
+import com.example.ca4u_backend.domain.club.dto.ClubResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -24,7 +24,7 @@ public class ClubController {
       description = "클럽의 상세페이지 정보를 전달합니다.",
       parameters = {@Parameter(name = "clubId", description = "클럽 아이디", in = ParameterIn.PATH)})
   @GetMapping("/clubs/{clubId}")
-  public ApiResponse<ClubReponseDto> getClub(@PathVariable long clubId) {
+  public ApiResponse<ClubResponseDto> getClub(@PathVariable long clubId) {
     return ApiResponse.ok(clubService.getClubSpec(clubId), "클럽 상세 정보를 불러왔습니다.");
   }
 
@@ -35,7 +35,7 @@ public class ClubController {
         @Parameter(name = "categoryId", description = "카테고리 아이디", in = ParameterIn.PATH)
       })
   @GetMapping("/categories/{categoryId}/clubs")
-  public ApiResponse<List<ClubReponseDto>> getClubsByCategory(@PathVariable long categoryId) {
+  public ApiResponse<List<ClubResponseDto>> getClubsByCategory(@PathVariable long categoryId) {
     return ApiResponse.ok(clubService.getClubsByCategoryId(categoryId), "카테고리에 속한 클럽들을 불러왔습니다.");
   }
 
@@ -44,7 +44,7 @@ public class ClubController {
       description = "검색어가 포함된 동아리 목록을 조회합니다.",
       parameters = {@Parameter(name = "search", description = "검색어", in = ParameterIn.QUERY)})
   @GetMapping("/clubs")
-  public ApiResponse<List<ClubReponseDto>> getClubsBySearch(
+  public ApiResponse<List<ClubResponseDto>> getClubsBySearch(
       @Parameter(description = "검색어") String search) {
     if (search == null || search.isEmpty()) {
       return ApiResponse.ok(Collections.emptyList(), "검색어가 제공되지 않았습니다.");
@@ -53,13 +53,13 @@ public class ClubController {
   }
 
   @GetMapping("/clubs/content-recommendation")
-  public ApiResponse<List<ClubReponseDto>> getRecommendedClubsByContent(
+  public ApiResponse<List<ClubResponseDto>> getRecommendedClubsByContent(
       @RequestParam List<Long> clubIds) {
     return ApiResponse.ok(clubService.getRelatedClubs(clubIds), "추천 클럽 리스트를 불러왔습니다.");
   }
 
   @GetMapping("/clubs/user-recommendation")
-  public ApiResponse<List<ClubReponseDto>> getUserRecommendedClubs(@Auth Long userId) {
+  public ApiResponse<List<ClubResponseDto>> getUserRecommendedClubs(@Auth Long userId) {
     return ApiResponse.ok(
         clubService.getRecommendedClubsByUser(userId), "사용자에게 추천된 클럽 리스트를 불러왔습니다.");
   }
