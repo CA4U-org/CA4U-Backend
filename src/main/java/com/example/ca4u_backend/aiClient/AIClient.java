@@ -2,7 +2,6 @@ package com.example.ca4u_backend.aiClient;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -41,14 +40,14 @@ public class AIClient {
 
   public Set<Long> recommendedByContent(List<Long> clubId) {
     String query = clubId.stream().map(String::valueOf).collect(Collectors.joining(","));
-    Set<Long> recommendedClubIds = new HashSet<>();
+
     ResponseEntity<ContentRecommendationResponse> resp =
         restTemplate.getForEntity(
             ADDRESS + "/clubs/content/recommend/n/" + query, ContentRecommendationResponse.class);
-    resp.getBody()
-        .getRecommendedClubs()
-        .forEach(recommendedClub -> recommendedClubIds.add(recommendedClub.getId()));
-    return recommendedClubIds;
+
+    return resp.getBody().getRecommendedClubs().stream()
+        .map(ContentRecommendationItem::getId)
+        .collect(Collectors.toSet());
   }
 
   @AllArgsConstructor
@@ -61,14 +60,14 @@ public class AIClient {
 
   public Set<Long> recommendedByUser(Long userId) {
     try {
-      Set<Long> recommendedClubIds = new HashSet<>();
       ResponseEntity<UserRecommendationResponse> resp =
           restTemplate.getForEntity(
               ADDRESS + "/clubs/user/recommend/" + userId, UserRecommendationResponse.class);
-      resp.getBody()
-          .getRecommendedClubs()
-          .forEach(recommendedClub -> recommendedClubIds.add(recommendedClub.getId()));
-      return recommendedClubIds;
+
+      return resp.getBody().getRecommendedClubs().stream()
+          .map(ContentRecommendationItem::getId)
+          .collect(Collectors.toSet());
+
     } catch (Exception e) {
       log.error("Error occurs while sending request at ai app, {} ", e.getMessage());
       return Collections.emptySet();
