@@ -2,6 +2,7 @@ package com.example.ca4u_backend.domain.club.dto;
 
 import com.example.ca4u_backend.domain.club.Club;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import lombok.*;
 
 @Getter
@@ -35,8 +36,8 @@ public class ClubResponseDto {
   // 업데이트 날짜
   private String updatedAt;
 
-  /*    // 클럽 썸네일 이미지 주소
-  private List<String> thumbnailImgUrlList;*/
+  // 클럽 썸네일 이미지 주소
+  private List<String> thumbnailImgUrlList;
 
   public static ClubResponseDto of(Club club) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy.MM.dd"); // 원하는 포맷
@@ -55,7 +56,7 @@ public class ClubResponseDto {
         .specDescription(club.getSpecDescription())
         .logoImgUrl(club.getLogoImgUrl())
         .updatedAt(club.getUpdatedAt().format(formatter))
-        /*      .thumbnailImgUrlList(club.getThumbnailImgUrlList())*/
+        .thumbnailImgUrlList(club.getThumbnailImgUrlList())
         .build();
   }
 }

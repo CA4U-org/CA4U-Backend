@@ -20,10 +20,10 @@ public class Club extends BaseEntity {
   @JoinColumn(name = "category_id")
   private Category category;
 
-  /*    @ElementCollection(fetch = FetchType.LAZY)
+  @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "CLUB_THUMNAIL", joinColumns = @JoinColumn(name = "club_id"))
-  @Column(name = "thumbnail_img_url", columnDefinition = "TEXT")
-  private List<String> thumbnailImgUrlList;*/
+  @Column(name = "img_url", columnDefinition = "TEXT")
+  private List<String> thumbnailImgUrlList = new ArrayList<>();
 
   @OneToMany(mappedBy = "club")
   private List<Hashtag> HashtagList = new ArrayList<>();
