@@ -32,13 +32,12 @@ public class ApiKey {
   private LocalDateTime expiresAt;
 
   @Column(name = "is_active")
-  private boolean isActive;
+  private boolean isActive = true;
 
   @PrePersist
   public void prePersist() {
     this.createdAt = this.createdAt == null ? LocalDateTime.now() : this.createdAt;
     this.expiresAt = this.expiresAt == null ? this.createdAt.plusMonths(1) : this.expiresAt;
-    if (this.isActive == false){ isActive=true; }
   }
 
   public boolean isExpired() {
