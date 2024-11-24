@@ -2,6 +2,8 @@ package com.example.ca4u_backend.domain.club;
 
 import com.example.ca4u_backend.common.entity.BaseEntity;
 import com.example.ca4u_backend.domain.category.Category;
+import com.example.ca4u_backend.domain.department.College;
+import com.example.ca4u_backend.domain.department.Major;
 import com.example.ca4u_backend.domain.hashtag.Hashtag;
 import jakarta.persistence.*;
 import java.util.ArrayList;
@@ -77,4 +79,23 @@ public class Club extends BaseEntity {
   private String time;
 
   private Integer membership;
+
+  @Column(name = "club_type")
+  @Enumerated(EnumType.STRING)
+  private ClubType clubType;
+
+  @Column(name = "is_recruit")
+  private Boolean isRecruit;
+
+  @Column(name = "campus_scope")
+  @Enumerated(EnumType.STRING)
+  private CampusScope campusScope;
+
+  @ManyToOne(fetch = FetchType.LAZY, optional = true)
+  @JoinColumn(name = "college_id")
+  private College college; // 단과대학
+
+  @ManyToOne(fetch = FetchType.LAZY, optional = true)
+  @JoinColumn(name = "major_id")
+  private Major major; // 학과
 }
