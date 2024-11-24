@@ -1,6 +1,5 @@
 package com.example.ca4u_backend.apiResponse;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,20 +19,16 @@ public class ApiKeyService {
 
     ApiKey key = apiKeyEntity.get();
 
-    // API 키가 만료되었거나 비활성화되면 무효
-    if (isExpired(key) || !isActive(key)) {
+    if (!key.isActive()) {
+      return false;
+    }
+
+    // 만기시 삭제
+    if (key.isExpired()) {
+      apiKeyRepository.delete(key);
       return false;
     }
 
     return true; // 모든 조건을 만족하면 유효
-  }
-
-  private Boolean isExpired(ApiKey apiKey) {
-    LocalDateTime now = LocalDateTime.now();
-    return now.isAfter(apiKey.getExpiresAt());
-  }
-
-  private Boolean isActive(ApiKey apiKey) {
-    return apiKey.getIsActive();
   }
 }

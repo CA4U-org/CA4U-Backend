@@ -22,7 +22,7 @@ public class ApiFilterTest {
 
   @MockBean private ApiKeyService apiKeyService;
 
-  private static final String VALID_API_KEY = " ";
+  private static final String VALID_API_KEY = "real_api_key";
   private static final String INVALID_API_KEY = "abcdefghijklmnop";
 
   @BeforeEach
@@ -35,15 +35,24 @@ public class ApiFilterTest {
   @Test
   void whenValidApiKey_thenRequestIsSuccessful() throws Exception {
     mockMvc
-        .perform(get("/api/clubs/test").header("X-API-KEY", VALID_API_KEY))
+        .perform(get("/api/clubs/test").header("API-KEY", VALID_API_KEY))
         .andExpect(status().isOk());
   }
 
   @Test
   void whenInvalidApiKey_thenRequestIsUnauthorized() throws Exception {
+    // 기대 JSON 응답
+    String expectedJson =
+        """
+    {
+        "success": false,
+        "message": "401 Unauthorized",
+        "result": null
+    }
+    """;
     mockMvc
-        .perform(get("/api/test").header("X-API-KEY", INVALID_API_KEY))
+        .perform(get("/api/clubs/test").header("API-KEY", INVALID_API_KEY))
         .andExpect(status().isUnauthorized())
-        .andExpect(content().json("{\"error\": \"Invalid or missing API Key\"}"));
+        .andExpect(content().json(expectedJson));
   }
 }

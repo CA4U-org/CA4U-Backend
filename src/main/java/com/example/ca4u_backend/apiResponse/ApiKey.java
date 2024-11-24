@@ -39,4 +39,13 @@ public class ApiKey {
     this.createdAt = this.createdAt == null ? LocalDateTime.now() : this.createdAt;
     this.expiresAt = this.expiresAt == null ? this.createdAt.plusMonths(1) : this.expiresAt;
   }
+
+  public Boolean isExpired() {
+    LocalDateTime now = LocalDateTime.now();
+    return now.isAfter(this.expiresAt);
+  }
+
+  public Boolean isActive() {
+    return this.isActive;
+  }
 }

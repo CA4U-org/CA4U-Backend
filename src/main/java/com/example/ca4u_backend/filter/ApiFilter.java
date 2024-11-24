@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ApiFilter implements Filter {
   private final ApiKeyService apiKeyService;
+  private final ObjectMapper objectMapper;
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
@@ -33,18 +34,14 @@ public class ApiFilter implements Filter {
       HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
 
       // 요청에서 API 키 추출
-      String apiKey = httpRequest.getHeader("X-API-KEY");
+      String apiKey = httpRequest.getHeader("API-KEY");
       if (apiKey == null || !apiKeyService.isValid(apiKey)) {
         // API 키가 없거나 유효하지 않으면 요청 차단
         httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
         httpResponse.setContentType("application/json");
-        ApiResponse<Void> apiResponse = ApiResponse.fail("Invalid or missing API Key");
+        ApiResponse<Void> apiResponse = ApiResponse.fail("401 Unauthorized");
         // 응답을 JSON으로 변환
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonResponse = objectMapper.writeValueAsString(apiResponse);
-
-        // 응답 본문 작성
-        httpResponse.getWriter().write(jsonResponse);
+        httpResponse.getWriter().write(objectMapper.writeValueAsString(apiResponse));
         return;
       }
     }
