@@ -1,6 +1,7 @@
 package com.example.ca4u_backend.domain.club;
 
 import com.example.ca4u_backend.aiClient.AIClient;
+import com.example.ca4u_backend.common.utils.CollectionsUtil;
 import com.example.ca4u_backend.domain.club.dto.ClubResponseDto;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
@@ -72,19 +73,16 @@ public class ClubService {
             .filter(club -> majorId == null || club.getMajor() != null && club.getMajor().getId().equals(majorId))
 
             // 카테고리 필터링
-            .filter(club -> categoryIds == null || categoryIds.isEmpty() || categoryIds.contains(club.getCategory().getId()))
+            .filter(club -> CollectionsUtil.isEmpty(categoryIds) || categoryIds.contains(club.getCategory().getId()))
 
             // 형식 필터링 (동아리, 학회, 소모임, 스터디 등)
-            .filter(club -> clubTypes == null || clubTypes.isEmpty() || clubTypes.contains(club.getClubType()))
+            .filter(club -> CollectionsUtil.isEmpty(categoryIds) || clubTypes.contains(club.getClubType()))
 
             // 규모 필터링 (대규모, 중규모, 소규모)
             .filter(club -> {
-              if (sizes == null || sizes.isEmpty()) {
-                return true; // 모든 클럽 통과
-              }
-              // 클럽의 규모를 카테고리로 변환
-              String sizeCategory = getSizeCategory(club.getMembership());
-              return sizeCategory != null && sizes.contains(sizeCategory);
+              if (CollectionsUtil.isEmpty(sizes)) return true;
+              String size = club.getSize();
+              return size != null && sizes.contains(size);
             })
 
             // DTO로 변환
@@ -92,15 +90,4 @@ public class ClubService {
             .toList();
   }
 
-  private String getSizeCategory(Integer membership) {
-    if (membership == null) {
-      return null; // 멤버십 정보가 없는 경우
-    } else if (membership >= 100) {
-      return "대규모";
-    } else if (membership >= 50) {
-      return "중규모";
-    } else {
-      return "소규모";
-    }
-  }
 }

@@ -98,4 +98,16 @@ public class Club extends BaseEntity {
   @ManyToOne(fetch = FetchType.LAZY, optional = true)
   @JoinColumn(name = "major_id")
   private Major major; // 학과
+
+  public String getSize() {
+    if (membership == null) {
+      return null; // 멤버십 정보가 없는 경우
+    } else if (membership >= 100) {
+      return "대규모";
+    } else if (membership >= 50) {
+      return "중규모";
+    } else {
+      return "소규모";
+    }
+  }
 }
