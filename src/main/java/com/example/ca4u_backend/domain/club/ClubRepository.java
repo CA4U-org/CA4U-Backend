@@ -13,4 +13,22 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
       String clubNm, String briefDescription);
 
   List<Club> findByIdIn(Collection<Long> clubIds);
+
+  @Query(
+      value =
+          """
+    SELECT
+        cl.id AS collegeId,
+        cl.name AS collegeName,
+        m.id AS majorId,
+        m.name AS majorName
+    FROM
+        COLLEGE cl
+    JOIN
+        MAJOR m ON cl.id = m.college_id
+    ORDER BY
+        cl.id, m.id
+    """,
+      nativeQuery = true)
+  List<Object[]> findCollegesWithMajorsNative();
 }
