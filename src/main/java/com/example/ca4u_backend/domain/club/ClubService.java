@@ -131,8 +131,6 @@ public class ClubService {
     return new FilterListResponseDto(campusScopes, colleges, categories, clubTypes, clubSizes);
   }
 
-
-
   private boolean matchSize(String size, int membership) {
     return switch (size) {
       case "LARGE" -> membership >= 101; // 대규모

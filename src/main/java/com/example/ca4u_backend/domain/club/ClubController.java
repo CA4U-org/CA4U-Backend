@@ -114,9 +114,7 @@ public class ClubController {
         "필터링된 클럽들을 조회했습니다.");
   }
 
-  @Operation(
-          summary = "클럽 필터링 목록 조회",
-          description = "필터링 목록을 반환합니다")
+  @Operation(summary = "클럽 필터링 목록 조회", description = "필터링 목록을 반환합니다")
   @GetMapping("/clubs/filters")
   public ApiResponse<FilterListResponseDto> getFilterList() {
     return ApiResponse.ok(clubService.getFilterList(), "필터 데이터를 불러왔습니다.");

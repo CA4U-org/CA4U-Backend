@@ -27,10 +27,6 @@ public enum ClubSize {
   public static Map<String, Map<String, Object>> toMap() {
     return Arrays.stream(ClubSize.values())
         .collect(
-            Collectors.toMap(
-                Enum::name,
-                size ->
-                    Map.of(
-                        "description", size.getDescription())));
+            Collectors.toMap(Enum::name, size -> Map.of("description", size.getDescription())));
   }
 }
