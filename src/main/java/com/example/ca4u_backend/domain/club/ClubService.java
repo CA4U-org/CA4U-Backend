@@ -1,7 +1,6 @@
 package com.example.ca4u_backend.domain.club;
 
 import com.example.ca4u_backend.aiClient.AIClient;
-import com.example.ca4u_backend.common.utils.CollectionsUtil;
 import com.example.ca4u_backend.domain.category.Category;
 import com.example.ca4u_backend.domain.category.CategoryRepository;
 import com.example.ca4u_backend.domain.club.dto.ClubResponseDto;
@@ -66,45 +65,48 @@ public class ClubService {
       List<Long> categoryIds,
       List<ClubType> clubTypes,
       List<String> sizes) {
+
     List<Club> allClubs = clubRepository.findAll();
 
     return allClubs.stream()
         // 모집 여부 필터링
-        .filter(club -> isRecruit == null || club.getIsRecruit().equals(isRecruit))
-
-        // 캠퍼스 범위 필터링 (교내/교외)
-        .filter(club -> campusScope == null || club.getCampusScope().equals(campusScope))
-
-        // 단과대학 필터링
-        .filter(
-            club ->
-                collegeId == null
-                    || club.getCollege() != null && club.getCollege().getId().equals(collegeId))
-
-        // 학과 필터링
-        .filter(
-            club ->
-                majorId == null
-                    || club.getMajor() != null && club.getMajor().getId().equals(majorId))
-
-        // 카테고리 필터링
-        .filter(
-            club ->
-                CollectionsUtil.isEmpty(categoryIds)
-                    || categoryIds.contains(club.getCategory().getId()))
-
-        // 형식 필터링 (동아리, 학회, 소모임, 스터디 등)
-        .filter(
-            club -> CollectionsUtil.isEmpty(categoryIds) || clubTypes.contains(club.getClubType()))
-
-        // 규모 필터링 (대규모, 중규모, 소규모)
-        .filter(
-            club -> {
-              if (CollectionsUtil.isEmpty(sizes)) return true; // 필터링 없을 경우 모든 클럽 포함
-              Integer membership = club.getMembership(); // 회원수
-              if (membership == null) return false; // 회원수 정보가 없는 클럽 제외
-              return sizes.stream().anyMatch(size -> matchSize(size, membership));
-            })
+        //        .filter(club -> isRecruit == null || club.getIsRecruit().equals(isRecruit))
+        //
+        //        // 캠퍼스 범위 필터링 (교내/교외)
+        //        .filter(club -> campusScope == null || club.getCampusScope().equals(campusScope))
+        //
+        //        // 단과대학 필터링
+        //        .filter(
+        //            club ->
+        //                collegeId == null
+        //                    || club.getCollege() != null &&
+        // club.getCollege().getId().equals(collegeId))
+        //
+        //        // 학과 필터링
+        //        .filter(
+        //            club ->
+        //                majorId == null
+        //                    || club.getMajor() != null && club.getMajor().getId().equals(majorId))
+        //
+        //        // 카테고리 필터링
+        //        .filter(
+        //            club ->
+        //                CollectionsUtil.isEmpty(categoryIds)
+        //                    || categoryIds.contains(club.getCategory().getId()))
+        //
+        //        // 형식 필터링 (동아리, 학회, 소모임, 스터디 등)
+        //        .filter(
+        //            club -> CollectionsUtil.isEmpty(categoryIds) ||
+        // clubTypes.contains(club.getClubType()))
+        //
+        //        // 규모 필터링 (대규모, 중규모, 소규모)
+        //        .filter(
+        //            club -> {
+        //              if (CollectionsUtil.isEmpty(sizes)) return true; // 필터링 없을 경우 모든 클럽 포함
+        //              Integer membership = club.getMembership(); // 회원수
+        //              if (membership == null) return false; // 회원수 정보가 없는 클럽 제외
+        //              return sizes.stream().anyMatch(size -> matchSize(size, membership));
+        //            })
 
         // DTO로 변환
         .map(ClubResponseDto::of)

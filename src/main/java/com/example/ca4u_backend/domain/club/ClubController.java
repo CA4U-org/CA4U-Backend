@@ -99,8 +99,8 @@ public class ClubController {
             description = "규모 (복수 선택 가능), ex(대규모, 중규모, 소규모)",
             in = ParameterIn.QUERY)
       })
-  @PostMapping("/clubs/filters")
-  public ApiResponse<List<ClubResponseDto>> postFilteredClubs(
+  @GetMapping("/clubs/filters")
+  public ApiResponse<List<ClubResponseDto>> getFilteredClubs(
       @RequestParam(required = false) Boolean isRecruit,
       @RequestParam(required = false) CampusScope campusScope,
       @RequestParam(required = false) Long collegeId,
@@ -108,6 +108,7 @@ public class ClubController {
       @RequestParam(required = false) List<Long> categoryIds,
       @RequestParam(required = false) List<ClubType> clubTypes,
       @RequestParam(required = false) List<String> sizes) {
+
     return ApiResponse.ok(
         clubService.getFilteredClubs(
             isRecruit, campusScope, collegeId, majorId, categoryIds, clubTypes, sizes),
@@ -115,7 +116,7 @@ public class ClubController {
   }
 
   @Operation(summary = "클럽 필터링 목록 조회", description = "필터링 목록을 반환합니다")
-  @GetMapping("/clubs/filters")
+  @GetMapping("/clubs/filters/list")
   public ApiResponse<FilterListResponseDto> getFilterList() {
     return ApiResponse.ok(clubService.getFilterList(), "필터 데이터를 불러왔습니다.");
   }
